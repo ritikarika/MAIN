@@ -1,0 +1,41 @@
+table CountryMaster
+	lineageTag: d6ed24f5-7f21-4040-908b-2eecd8bcb422
+
+	column Region
+		lineageTag: f6f81fe6-a123-43da-a8ff-209d8ab64004
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Region]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		lineageTag: acf1af20-e4fc-49f0-9026-f89c76643668
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Country]
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		lineageTag: 7496fc6d-6f31-4a3b-8fd3-59c4f739d44d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [City]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CountryMaster = calculated
+		mode: import
+		source = ```
+				DISTINCT(SELECTCOLUMNS(
+				    Data1,
+				    "Region", Data1[Region],
+				    "Country", Data1[Country],
+				    "City", Data1[City]
+				))
+				
+				```
+
+	annotation PBI_Id = 06f36518fc3d43de908f7d10cb5c8cb5
+
