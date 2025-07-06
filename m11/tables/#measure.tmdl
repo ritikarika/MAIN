@@ -1,0 +1,25 @@
+table #measure
+	lineageTag: 7b6116a7-6adb-414d-8ba8-166ad6cc7206
+
+	measure Sum = SUM(financials[Units Sold])
+		lineageTag: 40bd9620-3163-4db7-97d9-04d1786c38b5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Dummy
+		lineageTag: c37cbba2-b364-4205-99e5-91205e084c1b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Dummy]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition #measure = calculated
+		mode: import
+		source = ```
+				DATATABLE("Dummy", STRING, {{"Placeholder"}})
+				
+				```
+
+	annotation PBI_Id = 376f4325c808430397c56c8e14c522a6
+
